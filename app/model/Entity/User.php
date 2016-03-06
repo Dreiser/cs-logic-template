@@ -19,7 +19,7 @@ class User
     /**
      * @ORM\Column(length=128, unique=true)
      */
-    protected $email;
+    private $email;
 
     /**
      * @ORM\Column(length=123)
@@ -39,7 +39,7 @@ class User
     /**
      * @ORM\Column(type="datetime")
      */
-    protected $registered;
+    private $registered;
 
     /**
      * @ORM\OneToMany(targetEntity="Article", mappedBy="author")
@@ -53,10 +53,22 @@ class User
 
     /**
      * User constructor.
+     * @param string $email
+     * @param string $password
      */
-    public function __construct()
+    public function __construct($email, $password)
     {
-        $this->registered = new DateTime();
+        $this->setEmail($email);
+        $this->setPassword($password);
+        $this->setRegistered(new DateTime());
+    }
+
+    /**
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
     }
 
     /**
@@ -81,10 +93,20 @@ class User
     }
 
     /**
+     * @param string $email
+     * @return User
+     */
+    private function setEmail($email)
+    {
+        $this->email = $email;
+        return $this;
+    }
+
+    /**
      * @param string $password
      * @return User
      */
-    public function setPassword($password)
+    private function setPassword($password)
     {
         $this->password = Passwords::hash($password);
         return $this;
@@ -96,5 +118,15 @@ class User
     private function getPassword()
     {
         return $this->password;
+    }
+
+    /**
+     * @param DateTime $registered
+     * @return User
+     */
+    private function setRegistered(DateTime $registered)
+    {
+        $this->registered = $registered;
+        return $this;
     }
 }

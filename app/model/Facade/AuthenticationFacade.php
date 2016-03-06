@@ -57,14 +57,13 @@ class AuthenticationFacade extends Object
     }
 
     /**
-     * @param string $user
-     * @param string $password
+     * @param User $user
      * @throws \Exception
      */
-    public function createUser($user, $password)
+    public function addUser(User $user)
     {
-        $entity = $this->registerService->simple($user, $password);
-        $this->entityManager->flush($entity);
+        $this->entityManager->persist($user);
+        $this->entityManager->flush($user);
     }
 
     /**

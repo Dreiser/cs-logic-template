@@ -2,6 +2,7 @@
 
 namespace App\Components\SignUpForm;
 
+use App\Model\Entity\User;
 use App\Model\Facade\AuthenticationFacade;
 use Nette\Application\UI\Control;
 use Nette\Application\UI\Form;
@@ -53,7 +54,8 @@ class SignUpForm extends Control
     {
         $values = $form->getValues();
         try {
-            $this->authenticationFacade->createUser($values->email, $values->password);
+            $user = new User($values->email, $values->password);
+            $this->authenticationFacade->addUser($user);
         } catch(\Exception $ex) {
             $this->onResultFailed($ex);
             return;
