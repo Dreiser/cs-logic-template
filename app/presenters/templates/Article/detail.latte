@@ -8,7 +8,9 @@
     <p>
         {$article->getText()}
     </p>
-    <a href="{link unpublish!, 'articleId' => $article->getId()}">Zrušit publikování</a>
+    {if $user->isLoggedIn()}
+        <a href="{link unpublish!, 'articleId' => $article->getId()}">Zrušit publikování</a>
+    {/if}
 </div>
 <div>
     Komentářů: {count($comments)}
