@@ -1,0 +1,6 @@
+doctrine:
+    user: localhost
+    password: localhost
+    dbname: template
+    metadata:
+        App\Model\Entity: %appDir%/model/Entity
