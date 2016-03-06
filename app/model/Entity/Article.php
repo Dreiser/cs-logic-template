@@ -26,7 +26,7 @@ class Article
     protected $text;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="articles")
      */
     protected $author;
 
