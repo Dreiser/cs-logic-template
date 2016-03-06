@@ -18,37 +18,37 @@ class Comment
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="comments")
      */
-    protected $author;
+    private $author;
 
     /**
      * @ORM\ManyToOne(targetEntity="Article", inversedBy="comments")
      */
-    protected $article;
+    private $article;
 
     /**
      * @ORM\Column(type="text")
      */
-    protected $text;
+    private $text;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    protected $added;
+    private $added;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    protected $removed = null;
+    private $removed = null;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User", nullable=true)
+     * @ORM\ManyToOne(targetEntity="User")
      */
-    protected $remover = null;
+    private $remover = null;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    protected $published = null;
+    private $published = null;
 
     /**
      * Comment constructor.
@@ -85,16 +85,144 @@ class Comment
      */
     public function publish()
     {
-        $this->published = new DateTime();
+        $this->setPublished(new DateTime());
         return $this;
     }
 
     /**
+     * @param User $remover
      * @return Comment
      */
-    public function remove()
+    public function remove(User $remover)
     {
-        $this->removed = new DateTime();
+        $this->setRemoved(new DateTime());
+        $this->setRemover($remover);
         return $this;
+    }
+
+    /**
+     * @param Article $article
+     * @return Comment
+     */
+    private function setArticle(Article $article)
+    {
+        $this->article = $article;
+        return $this;
+    }
+
+    /**
+     * @return Article
+     */
+    public function getArticle()
+    {
+        return $this->article;
+    }
+
+    /**
+     * @param User $author
+     * @return Comment
+     */
+    private function setAuthor(User $author)
+    {
+        $this->author = $author;
+        return $this;
+    }
+
+    /**
+     * @return User
+     */
+    public function getAuthor()
+    {
+        return $this->author;
+    }
+
+    /**
+     * @param string $text
+     * @return Comment
+     */
+    public function setText($text)
+    {
+        $this->text = $text;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getText()
+    {
+        return $this->text;
+    }
+
+    /**
+     * @param DateTime $added
+     * @return Comment
+     */
+    private function setAdded(DateTime $added)
+    {
+        $this->added = $added;
+        return $this;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getAdded()
+    {
+        return $this->added;
+    }
+
+    /**
+     * @param DateTime $published
+     * @return Comment
+     */
+    private function setPublished(DateTime $published)
+    {
+        $this->published = $published;
+        return $this;
+    }
+
+    /**
+     * @return DateTime|null
+     */
+    private function getPublished()
+    {
+        return $this->published;
+    }
+
+    /**
+     * @param DateTime $removed
+     * @return Comment
+     */
+    private function setRemoved(DateTime $removed)
+    {
+        $this->removed = $removed;
+        return $this;
+    }
+
+    /**
+     * @return DateTime|null
+     */
+    public function getRemoved()
+    {
+        return $this->removed;
+    }
+
+    /**
+     * @param User $remover
+     * @return Comment
+     */
+    private function setRemover(User $remover)
+    {
+        $this->remover = $remover;
+        return $this;
+    }
+
+    /**
+     * @return User|null
+     */
+    public function getRemover()
+    {
+        return $this->remover;
     }
 }

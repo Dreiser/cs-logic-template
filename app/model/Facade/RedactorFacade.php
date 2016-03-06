@@ -4,6 +4,7 @@ namespace App\Model\Facade;
 
 use App\Model\Entity\Article;
 use App\Model\Entity\Comment;
+use App\Model\Entity\User;
 use App\Model\Query\ArticleQuery;
 use App\Model\Query\CommentQuery;
 use App\Model\Repository\ArticleRepository;
@@ -111,12 +112,13 @@ class RedactorFacade extends Object
 
     /**
      * @param Comment $comment
+     * @param User $remover
      * @return Comment
      * @throws \Exception
      */
-    public function removeComment(Comment $comment)
+    public function removeComment(Comment $comment, User $remover)
     {
-        $comment->remove();
+        $comment->remove($remover);
         $this->entityManager->flush($comment);
         return $comment;
     }

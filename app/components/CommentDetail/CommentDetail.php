@@ -3,6 +3,7 @@
 namespace App\Components\CommentDetail;
 
 use App\Model\Entity\Comment;
+use App\Model\Entity\User;
 use App\Model\Facade\RedactorFacade;
 use Kdyby\Doctrine\EntityManager;
 use Nette\Application\UI\Control;
@@ -106,7 +107,9 @@ class CommentDetail extends Control
             if($comment === null) {
                 throw new \LogicException('Článek nenalezen');
             }
-            $this->redactorFacade->removeComment($comment);
+            $userRepository = $this->entityManager->getRepository(User::class);
+            $user = $userRepository->find($this->getPresenter()->getUser()->getId());
+            $this->redactorFacade->removeComment($comment, $user);
         } catch (\Exception $ex) {
             $this->onRemoveFailed($ex);
             return;

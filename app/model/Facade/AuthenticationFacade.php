@@ -5,7 +5,6 @@ namespace App\Model\Facade;
 use App\Model\Entity\User;
 use App\Model\Query\UserQuery;
 use App\Model\Repository\UserRepository;
-use App\Model\Service\RegisterService;
 use Kdyby\Doctrine\EntityManager;
 use Nette\Object;
 use Nette\Security\AuthenticationException;
@@ -22,22 +21,17 @@ class AuthenticationFacade extends Object
     /** @var EntityManager */
     private $entityManager;
 
-    /** @var RegisterService */
-    private $registerService;
-
     /** @var UserRepository */
     private $userRepository;
 
     /**
      * AuthenticationFacade constructor.
      * @param EntityManager $entityManager
-     * @param RegisterService $registerService
      */
-    public function __construct(EntityManager $entityManager, RegisterService $registerService)
+    public function __construct(EntityManager $entityManager)
     {
         $this->entityManager = $entityManager;
-        $this->registerService = $registerService;
-        $this->userRepository = $entityManager->getRepository(User::class);
+        $this->userRepository = $this->entityManager->getRepository(User::class);
     }
 
     /**

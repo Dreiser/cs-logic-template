@@ -18,41 +18,45 @@ class Article
     /**
      * @ORM\Column(length=128)
      */
-    protected $title;
+    private $title;
 
     /**
      * @ORM\Column(type="text")
      */
-    protected $text;
+    private $text;
 
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="articles")
      */
-    protected $author;
+    private $author;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    protected $added;
+    private $added;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    protected $published = null;
+    private $published = null;
 
     /**
      * @ORM\OneToMany(targetEntity="Comment", mappedBy="article")
      */
-    protected $comments;
+    private $comments;
 
     /**
      * Article constructor.
      * @param User $author
+     * @param string $title
+     * @param string $text
      */
-    public function __construct(User $author)
+    public function __construct(User $author, $title, $text)
     {
-        $this->author = $author;
-        $this->added = new DateTime();
+        $this->setAuthor($author);
+        $this->setTitle($title);
+        $this->setText($text);
+        $this->setAdded(new DateTime());
     }
 
     /**
@@ -76,7 +80,7 @@ class Article
      */
     public function publish()
     {
-        $this->published = new DateTime();
+        $this->setPublished(new DateTime());
         return $this;
     }
 
@@ -87,5 +91,103 @@ class Article
     {
         $this->published = null;
         return $this;
+    }
+
+    /**
+     * @param User $author
+     * @return Article
+     */
+    private function setAuthor(User $author)
+    {
+        $this->author = $author;
+        return $this;
+    }
+
+    /**
+     * @return User
+     */
+    public function getAuthor()
+    {
+        return $this->author;
+    }
+
+    /**
+     * @param string $title
+     * @return Article
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * @param string $text
+     * @return Article
+     */
+    public function setText($text)
+    {
+        $this->text = $text;
+        return $text;
+    }
+
+    /**
+     * @return string
+     */
+    public function getText()
+    {
+        return $this->text;
+    }
+
+    /**
+     * @param DateTime $added
+     * @return Article
+     */
+    private function setAdded(DateTime $added)
+    {
+        $this->added = $added;
+        return $this;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getAdded()
+    {
+        return $this->added;
+    }
+
+    /**
+     * @param DateTime $published
+     * @return Article
+     */
+    private function setPublished(DateTime $published)
+    {
+        $this->published = $published;
+        return $this;
+    }
+
+    /**
+     * @return DateTime|null
+     */
+    public function getPublished()
+    {
+        return $this->published;
+    }
+
+    /**
+     * @return array
+     */
+    public function getComments()
+    {
+        return $this->comments;
     }
 }

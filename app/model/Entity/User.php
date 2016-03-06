@@ -29,12 +29,12 @@ class User
     /**
      * @ORM\Column(length=32, nullable=true)
      */
-    protected $firstname;
+    private $firstname;
 
     /**
      * @ORM\Column(length=64, nullable=true)
      */
-    protected $surname;
+    private $surname;
 
     /**
      * @ORM\Column(type="datetime")
@@ -44,12 +44,12 @@ class User
     /**
      * @ORM\OneToMany(targetEntity="Article", mappedBy="author")
      */
-    protected $articles;
+    private $articles;
 
     /**
      * @ORM\OneToMany(targetEntity="Comment", mappedBy="author")
      */
-    protected $comments;
+    private $comments;
 
     /**
      * User constructor.
@@ -128,5 +128,41 @@ class User
     {
         $this->registered = $registered;
         return $this;
+    }
+
+    /**
+     * @param string $firstname
+     * @return User
+     */
+    public function setFirstname($firstname)
+    {
+        $this->firstname = $firstname;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFirstname()
+    {
+        return $this->firstname;
+    }
+
+    /**
+     * @param string $surname
+     * @return User
+     */
+    public function setSurname($surname)
+    {
+        $this->surname = $surname;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSurname()
+    {
+        return $this->surname;
     }
 }
