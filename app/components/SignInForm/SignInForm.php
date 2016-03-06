@@ -2,6 +2,8 @@
 
 namespace App\Components\SignInForm;
 
+use App\Components\OnResultFailedTrait;
+use App\Components\OnResultSuccessTrait;
 use App\Model\Facade\AuthenticationFacade;
 use Nette\Application\UI\Control;
 use Nette\Application\UI\Form;
@@ -15,12 +17,8 @@ use Ulozenka\Components\FileTemplateTrait;
 class SignInForm extends Control
 {
     use FileTemplateTrait;
-
-    /** @var array */
-    public $onResultFailed = [];
-
-    /** @var array */
-    public $onResultSuccess = [];
+    use OnResultFailedTrait;
+    use OnResultSuccessTrait;
 
     /** @var AuthenticationFacade */
     private $authenticationFacade;
@@ -62,10 +60,11 @@ class SignInForm extends Control
         try {
             $this->getPresenter()->getUser()->login($values->email, $values->password);
         } catch(\Exception $ex) {
-            $this->onResultFailed($ex);
+            $form->addError('Došlo k neočekávané chybě.');
+            $this->callOnResultFailed($ex);
             return;
         }
-        $this->onResultSuccess();
+        $this->callOnResultSuccess();
     }
 
     /**
