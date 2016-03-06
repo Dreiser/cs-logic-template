@@ -1,0 +1,17 @@
+{block content}
+
+<h2>Náhled článku</h2>
+<div>
+    {control articlePreview, $article}
+</div>
+<h2>Autor článku</h2>
+<div>
+    <span>{$article->getAuthor()->getSignature()}</span>
+</div>
+<h2>Editace článku</h2>
+<div>
+    {control editArticleForm}
+</div>
+<div>
+    <a href="{link publish!}">Publikovat</a>
+</div>

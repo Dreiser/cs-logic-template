@@ -1,0 +1,10 @@
+{snippet articles}
+    {if count($articles) !== 0}
+        {control paginator, $paginator, $getPageLink}
+        {foreach $articles as $article}
+            <a href="{$article|getLink}">{control articlePreview, $article}</a>
+        {/foreach}
+    {else}
+        <p>Žádné nové články</p>
+    {/if}
+{/snippet}

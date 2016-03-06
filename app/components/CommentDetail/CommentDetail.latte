@@ -1,0 +1,13 @@
+<div>
+    <h3>{$comment->getAuthor()->getSignature()}</h3>
+    <small>Přidáno: {$comment->getAdded()|date: 'j.n.Y v H:i'}</small>
+    <p>
+        {$comment->getText()}
+    </p>
+    {if !$comment->isPublished() && $canPublish && !$comment->isRemoved()}
+        <a href="{link publish!, 'commentId' => $comment->getId()}">Zveřejnit komentář</a>
+    {/if}
+    {if !$comment->isRemoved() && $canRemove}
+        <a href="{link remove!, 'commentId' => $comment->getId()}">Smazat komentář</a>
+    {/if}
+</div>

@@ -1,0 +1,31 @@
+{block content}
+<div>
+    <h2>{$article->getTitle()}</h2>
+    <div>
+        <strong>{$article->getAuthor()->getSignature()}</strong>
+        <small>Publikováno: {$article->getPublished()|date: 'j.n.Y'}</small>
+    </div>
+    <p>
+        {$article->getText()}
+    </p>
+    <a href="{link unpublish!, 'articleId' => $article->getId()}">Zrušit publikování</a>
+</div>
+<div>
+    Komentářů: {count($comments)}
+    {if $article->getAuthor()->getId() === $user->getId()}
+        <a href="{link Blog:commentsForApprove, 'articleId' => $article->getId()}">Komentáře ke schválení</a>
+    {/if}
+    {if count($comments) !== 0}
+        <h2>Komentáře</h2>
+        <div>
+        {foreach $comments as $comment}
+            {control commentDetail, $comment}
+        {/foreach}
+        </div>
+    {/if}
+    {if $user->isLoggedIn()}
+        <div>
+            {control newCommentForm}
+        </div>
+    {/if}
+</div>

@@ -1,0 +1,9 @@
+<div>
+    <ul>
+    {for $i = 1; $i <= $maxPage; $i++}
+        <li>
+            <a href="{$i|getLink}">{$i}</a>
+        </li>
+    {/for}
+    </ul>
+</div>

@@ -1,0 +1,60 @@
+# WARNING: it is CRITICAL that this file & directory are NOT accessible directly via a web browser!
+# https://nette.org/security-warning
+
+parameters:
+
+
+php:
+	date.timezone: Europe/Prague
+
+
+application:
+	errorPresenter: Error
+	mapping:
+		*: App\*Module\Presenters\*Presenter
+
+
+session:
+	expiration: 14 days
+
+
+services:
+	router: App\RouterFactory::createRouter
+	authenticator: App\Model\Security\Authenticator
+
+	# REPOSITORY
+	articleRepository:
+	     class: App\Model\Repository\ArticleRepository
+	     tags: [doctrine.repositoryEntity: App\Model\Entity\Article]
+	commentRepository:
+	     class: App\Model\Repository\CommentRepository
+	     tags: [doctrine.repositoryEntity: App\Model\Entity\Comment]
+	userRepository:
+	     class: App\Model\Repository\UserRepository
+	     tags: [doctrine.repositoryEntity: App\Model\Entity\User]
+
+	# SERVICE
+	- App\Model\Service\RegisterService
+
+	# FACADE
+	- App\Model\Facade\AuthenticationFacade
+	- App\Model\Facade\BlogFacade
+	- App\Model\Facade\RedactorFacade
+
+	# COMPONENT
+	- App\Components\ArticlePreview\IArticlePreviewFactory
+	- App\Components\ArticlesPreview\IArticlesPreviewFactory
+	- App\Components\CommentDetail\ICommentDetailFactory
+	- App\Components\EditArticleForm\IEditArticleFormFactory
+	- App\Components\NewArticleForm\INewArticleFormFactory
+	- App\Components\NewCommentForm\INewCommentFormFactory
+	- App\Components\Paginator\IPaginatorFactory
+	- App\Components\SignUpForm\ISignUpFormFactory
+	- App\Components\SignInForm\ISignInFormFactory
+
+extensions:
+    # add theese four lines
+    console: Kdyby\Console\DI\ConsoleExtension
+    events: Kdyby\Events\DI\EventsExtension
+    annotations: Kdyby\Annotations\DI\AnnotationsExtension
+    doctrine: Kdyby\Doctrine\DI\OrmExtension

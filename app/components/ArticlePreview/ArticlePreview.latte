@@ -1,0 +1,5 @@
+<div>
+    <h3>{$article->getTitle()}</h3>
+    <small>Komentářů: {$article->getCommentsCount()}</small>
+    <p>{$article->getText()|truncate: 140}</p>
+</div>
