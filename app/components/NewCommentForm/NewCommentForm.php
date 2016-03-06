@@ -53,8 +53,7 @@ class NewCommentForm extends CommentForm
     {
         $values = $form->getValues();
         try {
-            $comment = new Comment($this->article, $this->author);
-            $comment->setText($values->text);
+            $comment = new Comment($this->article, $this->author, $values->text);
             $this->blogFacade->addComment($comment);
         } catch (\Exception $ex) {
             $form->addError('Došlo k neočekávané chybě.');

@@ -41,9 +41,9 @@ class Comment
     protected $removed = null;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="User", nullable=true)
      */
-    protected $remover;
+    protected $remover = null;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
@@ -54,12 +54,14 @@ class Comment
      * Comment constructor.
      * @param Article $article
      * @param User $author
+     * @param string $text
      */
-    public function __construct(Article $article, User $author)
+    public function __construct(Article $article, User $author, $text)
     {
-        $this->article = $article;
-        $this->author = $author;
-        $this->added = new DateTime();
+        $this->setArticle($article);
+        $this->setAuthor($author);
+        $this->setText($text);
+        $this->setAdded(new DateTime());
     }
 
     /**
