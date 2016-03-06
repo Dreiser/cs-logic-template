@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Presenters;
+use App\Model\Enum\FlashMessageType;
 
 /**
  * Class VerifyLoggedIn
