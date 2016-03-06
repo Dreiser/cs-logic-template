@@ -27,9 +27,6 @@ services:
 	- App\Model\Repository\CommentRepository
 	- App\Model\Repository\UserRepository
 
-	# SERVICE
-	- App\Model\Service\RegisterService
-
 	# FACADE
 	- App\Model\Facade\AuthenticationFacade
 	- App\Model\Facade\BlogFacade
