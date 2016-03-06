@@ -67,11 +67,11 @@ class BlogFacade extends Object
      */
     public function findNewArticles()
     {
-        $today = new DateTime();
         $query = (new ArticleQuery())
-            ->publishedFrom($today->sub(new \DateInterval('P1M'))) // Find published max 1 month ago
+            ->publishedFrom((new DateTime())->sub(new \DateInterval('P1M'))) // Find published max 1 month ago
             ->orderByPublished('DESC') // Ordered by published DESC
             ->withVisibleComments();
+
         return $this->articleRepository->fetch($query);
     }
 }
