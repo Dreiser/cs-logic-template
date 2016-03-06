@@ -47,6 +47,20 @@ class SignPresenter extends Presenter
     }
 
     /**
+     * @return void
+     */
+    public function actionOut()
+    {
+        if(!$this->getUser()->isLoggedIn()) {
+            $this->flashMessage('Žádný účet není přihlášený'. FlashMessageType::INFO);
+        }
+        else {
+            $this->getUser()->logout(true);
+        }
+        $this->redirect(DefaultRoutes::FRONTEND_DEFAULT);
+    }
+
+    /**
      * @return SignUpForm
      */
     protected function createComponentSignUpForm()
