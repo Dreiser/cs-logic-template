@@ -23,15 +23,9 @@ services:
 	authenticator: App\Model\Security\Authenticator
 
 	# REPOSITORY
-	articleRepository:
-	     class: App\Model\Repository\ArticleRepository
-	     tags: [doctrine.repositoryEntity: App\Model\Entity\Article]
-	commentRepository:
-	     class: App\Model\Repository\CommentRepository
-	     tags: [doctrine.repositoryEntity: App\Model\Entity\Comment]
-	userRepository:
-	     class: App\Model\Repository\UserRepository
-	     tags: [doctrine.repositoryEntity: App\Model\Entity\User]
+	- App\Model\Repository\ArticleRepository
+	- App\Model\Repository\CommentRepository
+	- App\Model\Repository\UserRepository
 
 	# SERVICE
 	- App\Model\Service\RegisterService
