@@ -42,7 +42,7 @@ class BlogFacade extends Object
     /**
      * @param Comment $comment
      */
-    public function updateComment(Comment $comment)
+    public function addComment(Comment $comment)
     {
         $this->entityManager->persist($comment);
         $this->entityManager->flush($comment);

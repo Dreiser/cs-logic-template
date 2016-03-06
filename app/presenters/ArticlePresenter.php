@@ -113,6 +113,16 @@ class ArticlePresenter extends Presenter
     protected function createComponentCommentDetail()
     {
         $commentDetail = $this->commentDetailFactory->create();
+        $commentDetail->canRemove($this->getUser()->isLoggedIn());
+        $commentDetail->onRemoveFailed = function (\Exception $ex) {
+            Debugger::log($ex, 'article_comment_remove');
+            $this->flashMessage('Došlo k neočekávané chybě.', FlashMessageType::ERROR);
+            $this->redirect('this');
+        };
+        $commentDetail->onRemoveSuccess = function () {
+            $this->flashMessage('Komentář byl odstraněn.', FlashMessageType::SUCCESS);
+            $this->redirect('this');
+        };
         return $commentDetail;
     }
 

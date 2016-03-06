@@ -50,7 +50,7 @@ class NewArticleForm extends ArticleForm
             $article = new Article($this->author);
             $article->setTitle($values->title);
             $article->setText($values->text);
-            $this->redactorFacade->updateArticle($article);
+            $this->redactorFacade->addArticle($article);
         } catch(\Exception $ex) {
             $form->addError('Při zpracování formuláře došlo k chybě.');
             $this->callOnResultFailed($ex);

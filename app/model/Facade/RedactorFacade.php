@@ -40,6 +40,15 @@ class RedactorFacade extends Object
 
     /**
      * @param Article $article
+     */
+    public function addArticle(Article $article)
+    {
+        $this->entityManager->persist($article);
+        $this->entityManager->flush($article);
+    }
+
+    /**
+     * @param Article $article
      * @return \Kdyby\Doctrine\ResultSet
      */
     public function getArticleComments(Article $article)
@@ -59,6 +68,7 @@ class RedactorFacade extends Object
     {
         $query =( new CommentQuery())
             ->isNotPublished()
+            ->isNotRemoved()
             ->byArticle($article)
             ->orderByAdded();
         return $this->commentRepository->fetch($query);
@@ -83,7 +93,6 @@ class RedactorFacade extends Object
     public function publishArticle(Article $article)
     {
         $article->publish();
-        $this->entityManager->persist($article);
         $this->entityManager->flush($article);
         return $article;
     }
@@ -96,7 +105,6 @@ class RedactorFacade extends Object
     public function publishComment(Comment $comment)
     {
         $comment->publish();
-        $this->entityManager->persist($comment);
         $this->entityManager->flush($comment);
         return $comment;
     }
@@ -109,7 +117,6 @@ class RedactorFacade extends Object
     public function removeComment(Comment $comment)
     {
         $comment->remove();
-        $this->entityManager->persist($comment);
         $this->entityManager->flush($comment);
         return $comment;
     }
@@ -121,7 +128,6 @@ class RedactorFacade extends Object
     public function unpublishArticle(Article $article)
     {
         $article->unpublish();
-        $this->entityManager->persist($article);
         $this->entityManager->flush($article);
     }
 
@@ -130,7 +136,6 @@ class RedactorFacade extends Object
      */
     public function updateArticle(Article $article)
     {
-        $this->entityManager->persist($article);
         $this->entityManager->flush($article);
     }
 }

@@ -57,6 +57,17 @@ class CommentQuery extends QueryObject
     /**
      * @return CommentQuery
      */
+    public function isNotRemoved()
+    {
+        $this->filter[] = function (QueryBuilder $qb) {
+            $qb->andWhere('c.removed IS NULL');
+        };
+        return $this;
+    }
+
+    /**
+     * @return CommentQuery
+     */
     public function isPublished()
     {
         $this->filter[] = function (QueryBuilder $qb) {
