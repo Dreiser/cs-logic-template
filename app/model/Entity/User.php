@@ -4,7 +4,6 @@ namespace App\Model\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Kdyby\Doctrine\Entities\Attributes\Identifier;
-use Kdyby\Doctrine\Entities\MagicAccessors;
 use Nette\Security\Passwords;
 use Nette\Utils\DateTime;
 
@@ -14,7 +13,6 @@ use Nette\Utils\DateTime;
 class User
 {
     use Identifier;
-    use MagicAccessors;
 
     /**
      * @ORM\Column(length=128, unique=true)

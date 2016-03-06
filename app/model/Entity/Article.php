@@ -4,7 +4,6 @@ namespace App\Model\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Kdyby\Doctrine\Entities\Attributes\Identifier;
-use Kdyby\Doctrine\Entities\MagicAccessors;
 use Nette\Utils\DateTime;
 
 /**
@@ -13,7 +12,6 @@ use Nette\Utils\DateTime;
 class Article
 {
     use Identifier;
-    use MagicAccessors;
 
     /**
      * @ORM\Column(length=128)
