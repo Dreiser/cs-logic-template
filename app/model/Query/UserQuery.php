@@ -14,9 +14,7 @@ use Kdyby\Persistence\Queryable;
  */
 class UserQuery extends QueryObject
 {
-    use FilterQueryBuilderTrait {
-        apply as applyFilterTrait;
-    }
+    use FilterQueryBuilderTrait;
 
     /**
      * @param Queryable $repository
